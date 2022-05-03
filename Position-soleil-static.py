@@ -6,6 +6,7 @@
 # "Static" code, to be automated with GA
 
 import pandas as pd
+import json
 
 import matplotlib.pyplot as plt
 from matplotlib import dates
@@ -131,3 +132,6 @@ fig.suptitle("Position et course du soleil\n%s, %s/%s" % (local_date, l.name, l.
 
 fig.tight_layout()
 fig.savefig('position_soleil.png', dpi=200, transparent=False)
+
+with open('last_update.json', 'w') as outfile:
+    json.dump({"schemaVersion": 1, "label": "Dernière mise à jour", "message": local_date, "color": "green"}, outfile)
