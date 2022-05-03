@@ -47,10 +47,8 @@ jobs:
     - name: Update figures
       shell: bash -l {0}
       run: |
-        export LC_ALL="fr_FR.UTF-8"
-        export LC_CTYPE="fr_FR.UTF-8"
-        sudo dpkg-reconfigure locales
         python Position-soleil-static.py
+        date +%s > last_update.txt
         ls -l
 
     - name: Save figures online
@@ -59,6 +57,6 @@ jobs:
         author_name: gmaze-bot
         author_email: gmaze@ifremer.fr
         message: "Update figures"
-        add: "*.json --force"
+        add: "*.png last_update.txt --force"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
