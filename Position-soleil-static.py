@@ -5,7 +5,6 @@
 # 
 # "Static" code, to be automated with GA
 
-
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -16,9 +15,8 @@ from matplotlib.ticker import MultipleLocator
 from astral import sun
 from astral import LocationInfo
 
-import locale
-locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
-
+# import locale
+# locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')  # Raise locale.Error: unsupported locale setting on Github actions
 
 def daily_sun_position(day, obs):
     tim = pd.date_range(start='%s0000' % day, end='%i0000' % (int(day)+1), periods=288+1, tz='Europe/Paris')  # 5-mins
@@ -70,7 +68,33 @@ solstice_winter = daily_sun_position('%s1221' % date[0:4], l.observer)
 df = daily_sun_position(date, l.observer)
 
 # Plot
-local_date = pd.to_datetime(date).strftime("%A %d %B %Y")
+# local_date = pd.to_datetime(date).strftime("%A %d %B %Y")
+weekdays = {'Monday': 'Lundi',
+           'Tuesday': 'Mardi',
+           'Wednesday': 'Mercredi',
+           'Thursday': 'Jeudi',
+           'Friday': 'Vendredi',
+           'Saturday': 'Samedi',
+           'Sunday': 'Dimanche'}
+months = {
+    'January': 'Janvier',
+    'February': 'Février',
+    'March': 'Mars',
+    'April': 'Avril',
+    'May': 'Mai',
+    'June': 'Juin',
+    'July': 'Juillet',
+    'August': 'Août',
+    'September': 'Septembre',
+    'October': 'Octobre',
+    'November': 'Novembre',
+    'December': 'Décembre'
+}
+local_date = "%s %s %s %s" % (
+    weekdays[pd.to_datetime(date).strftime("%A")],
+    pd.to_datetime(date).strftime("%d"),
+    months[pd.to_datetime(date).strftime("%B")],
+    pd.to_datetime(date).strftime("%Y"))
 
 fig, ax = plt.subplots(ncols=2, sharey=True, figsize=(20, 7))
 
