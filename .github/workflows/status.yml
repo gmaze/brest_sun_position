@@ -43,13 +43,13 @@ jobs:
       run: |
         conda info
         conda list
-        export LC_ALL="fr_FR.UTF-8"
-        export LC_CTYPE="fr_FR.UTF-8"
-        sudo dpkg-reconfigure locales
 
     - name: Update figures
       shell: bash -l {0}
       run: |
+        export LC_ALL="fr_FR.UTF-8"
+        export LC_CTYPE="fr_FR.UTF-8"
+        sudo dpkg-reconfigure locales
         python Position-soleil-static.py
         ls -l
 

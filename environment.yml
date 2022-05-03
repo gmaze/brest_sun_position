@@ -7,6 +7,6 @@ dependencies:
   - matplotlib
   - numpy
   - pandas
-  - seaborn
+#  - seaborn
   - pip:
     - astral
