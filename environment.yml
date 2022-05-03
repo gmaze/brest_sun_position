@@ -1,0 +1,12 @@
+name: brest-sun
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - scipy
+  - matplotlib
+  - numpy
+  - pandas
+  - seaborn
+  - pip:
+    - astral
