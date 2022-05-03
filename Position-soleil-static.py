@@ -133,5 +133,22 @@ fig.suptitle("Position et course du soleil\n%s, %s/%s" % (local_date, l.name, l.
 fig.tight_layout()
 fig.savefig('position_soleil.png', dpi=200, transparent=False)
 
+# Save some files:
 with open('last_update.json', 'w') as outfile:
-    json.dump({"schemaVersion": 1, "label": "Dernière mise à jour", "message": local_date, "color": "green"}, outfile)
+    json.dump({"schemaVersion": 1,
+               "label": "Dernière mise à jour",
+               "message": local_date,
+               "color": "green"}, outfile)
+
+t = pd.to_datetime('now', utc='Europe/Paris')
+with open('current_altitude.json', 'w') as outfile:
+    json.dump({"schemaVersion": 1,
+               "label": "Altitude",
+               "message": "%0.3f" % sun.elevation(l.observer, t),
+               "color": "green"}, outfile)
+
+with open('current_azimuth.json', 'w') as outfile:
+    json.dump({"schemaVersion": 1,
+               "label": "Azimuth",
+               "message": "%0.3f" % sun.azimuth(l.observer, t),
+               "color": "green"}, outfile)
