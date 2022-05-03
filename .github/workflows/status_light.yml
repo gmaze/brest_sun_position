@@ -1,0 +1,51 @@
+# This workflow update the sun position figures, daily
+
+name: update-light
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Daily “At 00:00” UTC
+  push:
+    branches: [ main ]
+  workflow_dispatch: # allows to trigger a workflow run manually
+
+jobs:
+  compute-and-report:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        ref: 'main'
+        fetch-depth: 0 # Fetch all history for all branches and tags.
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.8'
+
+    - name: Install requirements
+      run: |
+        python -m pip install --upgrade pip
+        pwd
+        ls -l
+        pip install pandas astral matplotlib
+
+    - name: Update figures
+      shell: bash -l {0}
+      run: |
+        python Position-soleil-static.py
+        date +%s > last_update.txt
+        ls -l
+
+    - name: Save figures online
+      uses: EndBug/add-and-commit@v4.4.0
+      with:
+        author_name: gmaze-bot
+        author_email: gmaze@ifremer.fr
+        message: "Update figures"
+        add: "*.png last_update.txt --force"
+      env:
+        GITHUB_TOKEN: ${{ secrets.SECRET_NAME }}
