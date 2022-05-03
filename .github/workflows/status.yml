@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: "0 0 * * *" # Daily “At 00:00” UTC
   push:
-    branches: [ master ]
+    branches: [ main ]
   workflow_dispatch: # allows to trigger a workflow run manually
 
 jobs:
@@ -43,6 +43,9 @@ jobs:
       run: |
         conda info
         conda list
+        export LC_ALL="en_US.UTF-8"
+        export LC_CTYPE="en_US.UTF-8"
+        sudo dpkg-reconfigure locales
 
     - name: Update figures
       shell: bash -l {0}
@@ -53,7 +56,7 @@ jobs:
     - name: Save figures online
       uses: EndBug/add-and-commit@v4.4.0
       with:
-        author_name: gmaze
+        author_name: gmaze-bot
         author_email: gmaze@ifremer.fr
         message: "Update figures"
         add: "*.json --force"
