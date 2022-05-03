@@ -134,13 +134,19 @@ fig.tight_layout()
 fig.savefig('position_soleil.png', dpi=200, transparent=False)
 
 # Save some files:
+t = pd.to_datetime('now', utc='Europe/Paris')
+local_datetime = "%s %s %s %s" % (
+    weekdays[t.strftime("%A")],
+    t.strftime("%d"),
+    months[t.strftime("%B")],
+    t.strftime("%Y, %Hh%M"))
+
 with open('last_update.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Dernière mise à jour",
-               "message": local_date,
+               "message": local_datetime,
                "color": "green"}, outfile)
 
-t = pd.to_datetime('now', utc='Europe/Paris')
 with open('current_altitude.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Altitude",
