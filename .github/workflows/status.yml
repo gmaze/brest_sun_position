@@ -34,18 +34,18 @@ jobs:
         ls -l
         pip install pandas astral matplotlib
 
-    - name: Update figures
+    - name: Update data
       shell: bash -l {0}
       run: |
         python Position-soleil-static.py
         ls -l
 
-    - name: Save figures online
+    - name: Save data online
       uses: EndBug/add-and-commit@v4.4.0
       with:
         author_name: gmaze-bot
         author_email: gmaze@ifremer.fr
-        message: "Update figures"
+        message: "Update data"
         add: "data/*.png data/*.json --force"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
