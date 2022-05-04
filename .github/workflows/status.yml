@@ -5,7 +5,7 @@ name: update
 on:
   schedule:
 #    - cron: "0 0 * * *" # Daily “At 00:00” UTC
-    - cron: "*/5 * * * *" # Every 5 mins
+    - cron: "*/6 * * * *" # Every 6 mins
   push:
     branches: [ main ]
   workflow_dispatch: # allows to trigger a workflow run manually
