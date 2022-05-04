@@ -135,7 +135,7 @@ ax[1].legend()
 fig.suptitle("Position et course du soleil\n%s, %s/%s" % (local_datetime, l.name, l.region), fontsize=16);
 
 fig.tight_layout()
-fig.savefig('position_soleil.png', dpi=200, transparent=False)
+fig.savefig('data/position_soleil.png', dpi=200, transparent=False)
 
 # Save some files:
 with open('data/last_update.json', 'w') as outfile:
