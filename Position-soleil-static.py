@@ -138,19 +138,19 @@ fig.tight_layout()
 fig.savefig('position_soleil.png', dpi=200, transparent=False)
 
 # Save some files:
-with open('last_update.json', 'w') as outfile:
+with open('data/last_update.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Dernière mise à jour",
                "message": local_datetime,
                "color": "green"}, outfile)
 
-with open('current_altitude.json', 'w') as outfile:
+with open('data/current_altitude.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Altitude",
                "message": "%0.3f" % sun.elevation(l.observer, t),
                "color": "green"}, outfile)
 
-with open('current_azimuth.json', 'w') as outfile:
+with open('data/current_azimuth.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Azimuth",
                "message": "%0.3f" % sun.azimuth(l.observer, t),
