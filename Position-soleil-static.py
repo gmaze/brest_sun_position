@@ -44,8 +44,8 @@ def get_xlim(this_df, vname='altitude', dx=5):
 
 
 # Define date to work with
-date = pd.to_datetime('now', utc='Europe/Paris').strftime("%Y%m%d")
-
+t = pd.to_datetime('now', utc='Europe/Paris')
+date = t.strftime("%Y%m%d")
 
 # Define reference data
 lon, lat = -4.5142170, 48.3814710  # Home ! Brest
@@ -63,7 +63,6 @@ l = LocationInfo('Brest', 'France', 'Europe/Paris', lat, lon)
 
 solstice_summer = daily_sun_position('%s0621' % date[0:4], l.observer)
 solstice_winter = daily_sun_position('%s1221' % date[0:4], l.observer)
-
 
 # Work with specific date
 df = daily_sun_position(date, l.observer)
@@ -96,6 +95,11 @@ local_date = "%s %s %s %s" % (
     pd.to_datetime(date).strftime("%d"),
     months[pd.to_datetime(date).strftime("%B")],
     pd.to_datetime(date).strftime("%Y"))
+local_datetime = "%s %s %s %s" % (
+    weekdays[t.strftime("%A")],
+    t.strftime("%d"),
+    months[t.strftime("%B")],
+    t.strftime("%Y, %Hh%M"))
 
 fig, ax = plt.subplots(ncols=2, sharey=True, figsize=(20, 7))
 
@@ -128,19 +132,12 @@ ax[1].set_xlabel('Temps')
 ax[1].set_xlim(get_xlim(solstice_summer, dx=15));
 ax[1].legend()
 
-fig.suptitle("Position et course du soleil\n%s, %s/%s" % (local_date, l.name, l.region), fontsize=16);
+fig.suptitle("Position et course du soleil\n%s, %s/%s" % (local_datetime, l.name, l.region), fontsize=16);
 
 fig.tight_layout()
 fig.savefig('position_soleil.png', dpi=200, transparent=False)
 
 # Save some files:
-t = pd.to_datetime('now', utc='Europe/Paris')
-local_datetime = "%s %s %s %s" % (
-    weekdays[t.strftime("%A")],
-    t.strftime("%d"),
-    months[t.strftime("%B")],
-    t.strftime("%Y, %Hh%M"))
-
 with open('last_update.json', 'w') as outfile:
     json.dump({"schemaVersion": 1,
                "label": "Dernière mise à jour",
