@@ -4,7 +4,7 @@
 ![badge](https://img.shields.io/endpoint?style=social&url=https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/current_azimuth.json)
 ![badge](https://img.shields.io/endpoint?style=social&url=https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/current_altitude.json)
 
-![logo](https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/position_soleil.png) 
+[![logo](https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/position_soleil.png)](https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/position_soleil.png) 
 
 La position est calculée toutes les 6 minutes avec la librairie "[astral](https://github.com/sffjunkie/astral)".
 
