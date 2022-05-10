@@ -44,7 +44,7 @@ jobs:
       uses: EndBug/add-and-commit@v4.4.0
       with:
         author_name: gmaze-bot
-        author_email: gmaze@ifremer.fr
+#        author_email: gmaze@ifremer.fr
         message: "Update data"
         add: "data/*.png data/*.json --force"
       env:
