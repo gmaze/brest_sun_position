@@ -1,11 +1,8 @@
 <!-- cover.md -->
 
-[comment]: <> (![logo]&#40;img/repo_picture_tight.png&#41;)
-![logo](data/position_soleil.png) 
-
 > Brest, position du soleil
 
-[GitHub](https://github.com/gmaze/brest_sun_position ':crossorgin')
+![logo](https://raw.githubusercontent.com/gmaze/brest_sun_position/master/data/position_soleil.png) 
 
 <!-- background color -->
 ![color](#fff)
