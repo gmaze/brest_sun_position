@@ -19,7 +19,7 @@ from astral import LocationInfo
 # import locale
 # locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')  # Raise locale.Error: unsupported locale setting on Github actions
 
-def daily_sun_position(day, obs):
+def daily_sun_position_old(day, obs):
     tim = pd.date_range(start='%s0000' % day, end='%i0000' % (int(day)+1), periods=288+1, tz='Europe/Paris')  # 5-mins
     altitude, azimuth = [], []
     for t in tim:
@@ -28,6 +28,24 @@ def daily_sun_position(day, obs):
     df = pd.DataFrame(list(zip(tim, azimuth, altitude)), columns=['time', 'azimuth', 'altitude'])
     df['time'] = df['time'].dt.time
     return df
+
+def daily_sun_position(t, obs):
+    if isinstance(t,pd.Timestamp):
+        start = pd.to_datetime("%0.4d%0.2d%0.2d" % (t.year, t.month, t.day))
+        end = pd.to_datetime("%0.4d%0.2d%0.2d" % (
+        (t + pd.Timedelta(24, 'hours')).year, (t + pd.Timedelta(24, 'hours')).month, (t + pd.Timedelta(24, 'hours')).day))
+    else:
+        start='%s0000' % t
+        end='%i0000' % (int(t) + 1)
+    tim = pd.date_range(start=start, end=end, periods=288 + 1, tz='Europe/Paris')  # 5-mins
+    altitude, azimuth = [], []
+    for t in tim:
+        altitude.append(sun.elevation(obs, t))# The number of degrees up from the horizon at which the sun can be seen
+        azimuth.append(sun.azimuth(obs, t))   # The number of degrees clockwise from North at which the sun can be seen
+    df = pd.DataFrame(list(zip(tim, azimuth, altitude)), columns=['time', 'azimuth', 'altitude'])
+    df['time'] = df['time'].dt.time
+    return df
+
 
 def now_sun_position(t, obs):
     # t = pd.to_datetime('now', utc=True)
@@ -76,7 +94,7 @@ solstice_summer = daily_sun_position('%s0621' % date[0:4], l.observer)
 solstice_winter = daily_sun_position('%s1221' % date[0:4], l.observer)
 
 # Work with specific date
-df = daily_sun_position(date, l.observer)
+df = daily_sun_position(t, l.observer)
 df_now = now_sun_position(t, l.observer)
 
 # Plot
