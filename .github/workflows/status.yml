@@ -5,7 +5,7 @@ name: update
 on:
   schedule:
 #    - cron: "0 0 * * *" # Daily “At 00:00” UTC
-    - cron: "*/6 * * * *" # Every 6 mins
+    - cron: "*/10 * * * *" # Every 10 mins
   push:
     branches: [ main ]
   workflow_dispatch: # allows to trigger a workflow run manually
@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: 'main'
-        fetch-depth: 0 # Fetch all history for all branches and tags.
+        fetch-depth: 1 # Fetch all history for all branches and tags.
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
